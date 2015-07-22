@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="${id}">
+  <feature extension="dita.conductor.lib.import" file="lexical-event-converter-${version}.jar"/>
+  <feature extension="dita.preprocess.prefilter" value="class:com.zanyants.dita.lexicaleventconverter.LexicalEventConversionFilter"/>
+</plugin>
