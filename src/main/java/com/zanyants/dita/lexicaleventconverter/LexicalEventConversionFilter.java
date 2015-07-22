@@ -25,12 +25,10 @@ public class LexicalEventConversionFilter extends XMLFilterImpl implements Lexic
     LexicalHandler originalLexicalHandler;
 
     public LexicalEventConversionFilter() {
-        System.out.println("###TG### -> lex.ctor");
     }
 
     @Override
     public void setProperty(String name, Object value) throws SAXNotRecognizedException, SAXNotSupportedException {
-        System.out.printf("###TG### -> lex.setProperty(%s,%s)\n", name, value.toString());
         if (name == SAX_PARSER_FEATURE_LEXICALHANDLER){
             originalLexicalHandler=(LexicalHandler)value;
         } else {
@@ -40,7 +38,6 @@ public class LexicalEventConversionFilter extends XMLFilterImpl implements Lexic
     
     @Override
     public void setParent(XMLReader parent) {
-        System.out.println("###TG### -> lex.setParent");
         XMLReader currentParent = super.getParent();
         if (currentParent != null) {
             try {
@@ -55,7 +52,6 @@ public class LexicalEventConversionFilter extends XMLFilterImpl implements Lexic
         if (parent == null) {
             originalLexicalHandler = null;
         } else {
-            System.out.printf("###TG### parent is %s\n", parent.getClass().getName());
             try {
                 originalLexicalHandler = (LexicalHandler) parent.getProperty(SAX_PARSER_FEATURE_LEXICALHANDLER);
                 parent.setProperty(SAX_PARSER_FEATURE_LEXICALHANDLER, this);
@@ -63,12 +59,10 @@ public class LexicalEventConversionFilter extends XMLFilterImpl implements Lexic
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("###TG### <- lex.setParent");
     }
 
     @Override
     public void startDTD(String name, String publicId, String systemId) throws SAXException {
-        System.out.println("###TG### -> startDTD");
         getContentHandler().processingInstruction("doctype-public", publicId);
         getContentHandler().processingInstruction("doctype-system", systemId);
         if (originalLexicalHandler != null) {
